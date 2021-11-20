@@ -14,11 +14,10 @@ const Customers = () => {
         });
     }, []);
     const handleTransfer = (id, amount) => {
-        let tmpCustomers = [...customers];
-        let reciever = tmpCustomers.find(customer => customer._id ===id);
+        let reciever = customers.find(customer => customer._id ===id);
         reciever.cash += parseInt(amount);
         console.log(reciever,customers);
-        setCustomers([...tmpCustomers]);
+        setCustomers([...customers]);
     }
 
     return (

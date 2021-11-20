@@ -74,10 +74,10 @@ const Customer = ({ name, id, cash, credit, handleTransferTrans }) => {
             }).then((res) => {
                 console.log(res.data);
                 if (res.status === 200) {
-                    handleTransferTrans(amounts.recieverId, amounts.transferAmount);
                     let tmpCustomer = { ...customer };
                     tmpCustomer.cash -= parseInt(amounts.transferAmount);
                     setCustomer(tmpCustomer);
+                    handleTransferTrans(amounts.recieverId, amounts.transferAmount);
                     setAmounts({ ...amounts, transferAmount: '', recieverId: '' });
                 }
             }).catch((err) => {
