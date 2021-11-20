@@ -16,7 +16,7 @@ const AddCustomer = () => {
 
     const addCustomer = (e) => {
         e.preventDefault();
-        axios.post('http://localhost:5001/', customer).then(res => {
+        axios.post('https://bank-server-saleh.herokuapp.com/', customer).then(res => {
             if (res.status === 200) {
                 setIsAdded(true);
             }

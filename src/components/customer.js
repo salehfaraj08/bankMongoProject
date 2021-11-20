@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import axios from "axios";
 
 const Customer = ({ name, id, cash, credit, handleTransferTrans }) => {
@@ -39,7 +39,7 @@ const Customer = ({ name, id, cash, credit, handleTransferTrans }) => {
     const handleTransactionSend = (type) => {
         console.log(type);
         if (type === 'deposit') {
-            axios.put(`http://localhost:5001/bank/deposit/${customer.id}`, {
+            axios.put(`https://bank-server-saleh.herokuapp.com/bank/deposit/${customer.id}`, {
                 amountOfCash: amounts.amountOfCash
             }).then((res) => {
                 if (res.status === 200) {
@@ -54,7 +54,7 @@ const Customer = ({ name, id, cash, credit, handleTransferTrans }) => {
             });
         }
         else if (type === 'withdraw') {
-            axios.put(`http://localhost:5001/bank/withdraw/${customer.id}`, {
+            axios.put(`https://bank-server-saleh.herokuapp.com/bank/withdraw/${customer.id}`, {
                 withdrawAmount: amounts.withdrawAmount
             }).then((res) => {
                 console.log(res.data);
@@ -69,23 +69,23 @@ const Customer = ({ name, id, cash, credit, handleTransferTrans }) => {
             });
         }
         else if (type === 'transferMoney') {
-            axios.put(`http://localhost:5001/bank/transfer/${customer.id}/${amounts.recieverId}`, {
+            axios.put(`https://bank-server-saleh.herokuapp.com/bank/transfer/${customer.id}/${amounts.recieverId}`, {
                 transferAmount: amounts.transferAmount
             }).then((res) => {
                 console.log(res.data);
                 if (res.status === 200) {
                     handleTransferTrans(amounts.recieverId, amounts.transferAmount);
-                    // let tmpCustomer = { ...customer };
-                    // tmpCustomer.cash -= parseInt(amounts.transferAmount);
-                    // setCustomer(tmpCustomer);
-                    // setAmounts({ ...amounts, transferAmount: '', recieverId: '' });
+                    let tmpCustomer = { ...customer };
+                    tmpCustomer.cash -= parseInt(amounts.transferAmount);
+                    setCustomer(tmpCustomer);
+                    setAmounts({ ...amounts, transferAmount: '', recieverId: '' });
                 }
             }).catch((err) => {
                 console.log(err);
             });
         }
         else if (type === 'update credit') {
-            axios.put(`http://localhost:5001/bank/updateCredit/${customer.id}`, {
+            axios.put(`https://bank-server-saleh.herokuapp.com/bank/updateCredit/${customer.id}`, {
                 newCredit: amounts.newCredit
             }).then((res) => {
                 console.log(res.data);
